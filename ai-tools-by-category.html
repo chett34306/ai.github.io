@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Systems by Use Case — Reference Guide 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --accent: #c0392b;
+    --accent2: #2c3e50;
+    --muted: #7a7469;
+    --rule: #cfc9bb;
+    --pro: #1a6b3c;
+    --con: #8b2020;
+    --pro-bg: #eef7f2;
+    --con-bg: #fdf2f2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    padding: 40px 24px 80px;
+  }
+
+  .masthead {
+    text-align: center;
+    border-bottom: 3px double var(--ink);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .masthead::before {
+    content: "▪ RESEARCH REFERENCE ▪";
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .masthead h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 56px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .masthead p {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  .note-box {
+    background: var(--accent2);
+    color: #e8e4db;
+    padding: 14px 22px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    border-radius: 2px;
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+
+  .note-box strong {
+    color: #fff;
+    letter-spacing: 0.5px;
+  }
+
+  .category-section {
+    margin-bottom: 52px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 4px 4px 0 var(--rule);
+  }
+
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 22px;
+  }
+
+  .cat-emoji { font-size: 22px; }
+
+  .cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  .cat-sub {
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    opacity: 0.5;
+    text-transform: uppercase;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: white;
+  }
+
+  thead {
+    background: var(--cream);
+  }
+
+  thead th {
+    padding: 10px 16px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    border-bottom: 2px solid var(--rule);
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.15s;
+  }
+
+  tbody tr:hover { background: #faf8f4; }
+  tbody tr:last-child { border-bottom: none; }
+
+  td {
+    padding: 14px 16px;
+    vertical-align: top;
+  }
+
+  .rank-cell {
+    text-align: center;
+    width: 40px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--rule);
+  }
+
+  .rank-cell.r1 { color: #b8962e; }
+  .rank-cell.r2 { color: #8a9ba8; }
+  .rank-cell.r3 { color: #a0785a; }
+
+  .tool-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  .tool-maker {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 2px 7px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .pro-con-cell { min-width: 200px; }
+
+  .pro-item, .con-item {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    margin-bottom: 5px;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+
+  .pro-item::before {
+    content: "+";
+    color: var(--pro);
+    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .con-item::before {
+    content: "−";
+    color: var(--con);
+    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .price-cell {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    width: 100px;
+  }
+
+  .price-cell .price-val {
+    font-size: 12px;
+    color: var(--ink);
+    font-weight: 500;
+    display: block;
+  }
+
+  .best-for-cell {
+    font-size: 12.5px;
+    color: var(--accent2);
+    font-style: italic;
+    width: 160px;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    line-height: 2;
+  }
+
+  .disclaimer {
+    background: var(--cream);
+    border-left: 3px solid var(--accent);
+    padding: 12px 18px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    font-family: 'DM Mono', monospace;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 700px) {
+    table { font-size: 12px; }
+    .pro-con-cell { min-width: 150px; }
+    .best-for-cell { width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <h1>Which <em>AI System</em><br>to Use & When</h1>
+  <p>Top 3 Tools per Category · Pros & Cons · Pricing · Best For · Updated Feb 2026</p>
+</div>
+
+<div class="note-box">
+  <strong>NOTE:</strong> This reference covers two types of AI: (1) Large Language Models (LLMs) like Claude, GPT-5, Gemini — general-purpose reasoning engines — 
+  and (2) Specialized AI tools built for specific tasks (video editing, legal research, medical diagnosis). 
+  For academic work, always verify outputs. AI tools are supplements, not replacements for domain expertise.
+</div>
+
+<div class="disclaimer">
+  ⚠ Rankings reflect benchmark data and expert consensus as of early 2026. The AI landscape evolves rapidly — 
+  verify current performance at lmarena.ai, vellum.ai/best-llm-for-coding, or your domain-specific leaderboards.
+</div>
+
+<!-- CODING -->
+<div class="category-section">
+  <div class="cat-header">
+    <span class="cat-emoji">💻</span>
+    <span class="cat-title">Coding & Software Engineering</span>
+    <span class="cat-sub">Dev / Agentic</span>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th><th>Tool / Model</th><th>Pros</th><th>Cons</th><th>Best For</th><th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell r1">1</td>
+        <td>
+          <div class="tool-name">Claude Opus 4.5</div>
+          <div class="tool-maker">Anthropic</div>
+          <div class="tag">SWE-Bench #1 · 82%+</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Top SWE-bench score for real-world bug fixes</div>
+          <div class="pro-item">Long context (200K tokens) for entire codebases</div>
+          <div class="pro-item">Strong agentic & multi-step reasoning</div>
+          <div class="pro-item">Best polyglot benchmark (89.4% Aider)</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Expensive at API scale</div>
+          <div class="con-item">Slower inference than lighter models</div>
+          <div class="con-item">No native web browsing in all contexts</div>
+        </td>
+        <td class="best-for-cell">Complex debugging, agentic coding agents, large repo refactoring</td>
+        <td class="price-cell"><span class="price-val">$20/mo</span>(claude.ai Pro)</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r2">2</td>
+        <td>
+          <div class="tool-name">GPT-5 / o3</div>
+          <div class="tool-maker">OpenAI</div>
+          <div class="tag">88% Aider · HumanEval</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Excellent multi-language support</div>
+          <div class="pro-item">Strong tool use & function calling</div>
+          <div class="pro-item">Best ecosystem (Copilot, Cursor, etc.)</div>
+          <div class="pro-item">Code interpreter for run-and-fix loops</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Rate limits on free tier</div>
+          <div class="con-item">GPT-5 Pro is $200/mo for full access</div>
+          <div class="con-item">Sometimes over-explains vs. concise code</div>
+        </td>
+        <td class="best-for-cell">General dev, IDE integration, code explanation</td>
+        <td class="price-cell"><span class="price-val">$20–200/mo</span>ChatGPT Plus/Pro</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r3">3</td>
+        <td>
+          <div class="tool-name">Gemini 3 Pro</div>
+          <div class="tool-maker">Google DeepMind</div>
+          <div class="tag">LiveCodeBench #2</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">1M token context — ideal for massive codebases</div>
+          <div class="pro-item">Native Google Cloud / Firebase integration</div>
+          <div class="pro-item">Strong multimodal (screenshot → code)</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Behind Claude/GPT on agentic coding benchmarks</div>
+          <div class="con-item">Responses can be brief / clinical</div>
+          <div class="con-item">Less mature IDE plugin ecosystem</div>
+        </td>
+        <td class="best-for-cell">GCP environments, screenshot-to-code, large file analysis</td>
+        <td class="price-cell"><span class="price-val">$20/mo</span>Google One AI</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- WRITING -->
+<div class="category-section">
+  <div class="cat-header">
+    <span class="cat-emoji">✍️</span>
+    <span class="cat-title">Writing & Content Creation</span>
+    <span class="cat-sub">Creative / Professional</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Tool / Model</th><th>Pros</th><th>Cons</th><th>Best For</th><th>Price</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell r1">1</td>
+        <td>
+          <div class="tool-name">GPT-5.1 / ChatGPT</div>
+          <div class="tool-maker">OpenAI</div>
+          <div class="tag">Creative Writing v3 #1</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Ranked #1 on Creative Writing v3 benchmark</div>
+          <div class="pro-item">Warmer, more natural conversational tone</div>
+          <div class="pro-item">Memory across sessions for consistent voice</div>
+          <div class="pro-item">Custom GPTs for niche writing styles</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Can be verbose and repetitive by default</div>
+          <div class="con-item">Writing suggestions sometimes mechanical</div>
+          <div class="con-item">Style adaptation less flexible than Claude</div>
+        </td>
+        <td class="best-for-cell">Blog posts, marketing copy, storytelling, scripts</td>
+        <td class="price-cell"><span class="price-val">$20/mo</span>ChatGPT Plus</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r2">2</td>
+        <td>
+          <div class="tool-name">Claude Sonnet 4.5</div>
+          <div class="tool-maker">Anthropic</div>
+          <div class="tag">Style Adaptation · Long-form</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Adapts rapidly to personal writing style</div>
+          <div class="pro-item">Exceptional at editing and voice-matching</div>
+          <div class="pro-item">Nuanced, context-aware prose quality</div>
+          <div class="pro-item">Handles very long documents coherently</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">No memory by default across sessions</div>
+          <div class="con-item">Occasionally over-cautious with edgy content</div>
+        </td>
+        <td class="best-for-cell">Research papers, editing, long-form essays, professional docs</td>
+        <td class="price-cell"><span class="price-val">$20/mo</span>claude.ai Pro</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r3">3</td>
+        <td>
+          <div class="tool-name">Jasper AI</div>
+          <div class="tool-maker">Jasper</div>
+          <div class="tag">Marketing-focused</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Purpose-built for brand & marketing copy</div>
+          <div class="pro-item">Team collaboration and brand voice features</div>
+          <div class="pro-item">SEO-integrated writing workflows</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Expensive for individual users ($49+/mo)</div>
+          <div class="con-item">Underlying models lag frontier LLMs</div>
+          <div class="con-item">Limited for non-marketing writing tasks</div>
+        </td>
+        <td class="best-for-cell">Marketing teams, ad copy, brand content at scale</td>
+        <td class="price-cell"><span class="price-val">$49/mo</span>Creator plan</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MATH -->
+<div class="category-section">
+  <div class="cat-header">
+    <span class="cat-emoji">📐</span>
+    <span class="cat-title">Mathematics & Quantitative Reasoning</span>
+    <span class="cat-sub">STEM / Research</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Tool / Model</th><th>Pros</th><th>Cons</th><th>Best For</th><th>Price</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell r1">1</td>
+        <td>
+          <div class="tool-name">Gemini 3 Pro</div>
+          <div class="tool-maker">Google DeepMind</div>
+          <div class="tag">AIME 2025: 95–100%</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Top AIME 2025 score (95–100% with code exec)</div>
+          <div class="pro-item">Deep Think mode for extended reasoning</div>
+          <div class="pro-item">Visual geometry & diagram interpretation</div>
+          <div class="pro-item">Large context for complex proof chains</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Still hallucinates on novel/edge-case proofs</div>
+          <div class="con-item">Deep Think mode is slow</div>
+        </td>
+        <td class="best-for-cell">Competition math, geometry, research proofs</td>
+        <td class="price-cell"><span class="price-val">$20/mo</span>Google One AI</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r2">2</td>
+        <td>
+          <div class="tool-name">GPT-5 / o3</div>
+          <div class="tool-maker">OpenAI</div>
+          <div class="tag">AIME: 94.6% · GPQA: 88.4%</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Expert-level GPQA (graduate-level science)</div>
+          <div class="pro-item">Chain-of-thought for step-by-step proofs</div>
+          <div class="pro-item">Code interpreter for numerical verification</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Arithmetic errors still occur at scale</div>
+          <div class="con-item">o3 Pro ($200/mo) needed for best performance</div>
+        </td>
+        <td class="best-for-cell">Graduate math, logic proofs, statistical analysis</td>
+        <td class="price-cell"><span class="price-val">$20–200/mo</span></td>
+      </tr>
+      <tr>
+        <td class="rank-cell r3">3</td>
+        <td>
+          <div class="tool-name">Wolfram Alpha</div>
+          <div class="tool-maker">Wolfram Research</div>
+          <div class="tag">Symbolic · Computational</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Exact symbolic computation, no hallucination</div>
+          <div class="pro-item">Step-by-step solutions with verified answers</div>
+          <div class="pro-item">Covers calculus, statistics, number theory</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">No natural language reasoning or explanation</div>
+          <div class="con-item">Poor at novel or unseen problem types</div>
+          <div class="con-item">Interface feels dated</div>
+        </td>
+        <td class="best-for-cell">Exact calculations, homework verification, formula lookup</td>
+        <td class="price-cell"><span class="price-val">Free / $7.25/mo</span>Pro</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- EDUCATION -->
+<div class="category-section">
+  <div class="cat-header">
+    <span class="cat-emoji">🎓</span>
+    <span class="cat-title">Education & Tutoring</span>
+    <span class="cat-sub">K-12 / Higher Ed</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Tool / Model</th><th>Pros</th><th>Cons</th><th>Best For</th><th>Price</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell r1">1</td>
+        <td>
+          <div class="tool-name">Khan Academy Khanmigo</div>
+          <div class="tool-maker">Khan Academy (GPT-4)</div>
+          <div class="tag">Pedagogically Designed</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Built on Socratic method — guides not answers</div>
+          <div class="pro-item">Tied to Khan Academy's full curriculum</div>
+          <div class="pro-item">Safe & age-appropriate for K-12</div>
+          <div class="pro-item">Tracks learning progress</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Limited to Khan Academy content scope</div>
+          <div class="con-item">Slower and less capable than frontier LLMs</div>
+          <div class="con-item">Not useful for college-level advanced topics</div>
+        </td>
+        <td class="best-for-cell">K-12 students, homework help, test prep</td>
+        <td class="price-cell"><span class="price-val">Free</span>(beta)</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r2">2</td>
+        <td>
+          <div class="tool-name">Claude Sonnet 4.5</div>
+          <div class="tool-maker">Anthropic</div>
+          <div class="tag">Explanation · Depth</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Exceptional at explaining complex concepts clearly</div>
+          <div class="pro-item">Adapts to learner's level and background</div>
+          <div class="pro-item">Can generate custom practice problems</div>
+          <div class="pro-item">Safe, patient, nuanced responses</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">No built-in curriculum or progress tracking</div>
+          <div class="con-item">Requires user to self-direct learning</div>
+        </td>
+        <td class="best-for-cell">University students, concept mastery, research understanding</td>
+        <td class="price-cell"><span class="price-val">$20/mo</span>or Free tier</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r3">3</td>
+        <td>
+          <div class="tool-name">Duolingo Max</div>
+          <div class="tool-maker">Duolingo (GPT-4)</div>
+          <div class="tag">Language Learning</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Gamified, high-retention language learning</div>
+          <div class="pro-item">AI roleplay conversations for speaking practice</div>
+          <div class="pro-item">Adaptive difficulty, spaced repetition</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Only covers language learning</div>
+          <div class="con-item">Gamification can distract from depth</div>
+          <div class="con-item">Max tier is $30/mo</div>
+        </td>
+        <td class="best-for-cell">Language acquisition, travel prep, vocabulary building</td>
+        <td class="price-cell"><span class="price-val">Free / $30/mo</span>Max</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- LAW -->
+<div class="category-section">
+  <div class="cat-header">
+    <span class="cat-emoji">⚖️</span>
+    <span class="cat-title">Legal Research & Analysis</span>
+    <span class="cat-sub">Professional Use · Verify w/ Counsel</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Tool / Model</th><th>Pros</th><th>Cons</th><th>Best For</th><th>Price</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell r1">1</td>
+        <td>
+          <div class="tool-name">Harvey AI</div>
+          <div class="tool-maker">Harvey (GPT-4 + legal fine-tune)</div>
+          <div class="tag">Enterprise Legal</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Purpose-built for legal: contract review, drafting</div>
+          <div class="pro-item">Used by AmLaw 100 firms</div>
+          <div class="pro-item">Cites sources, reduced hallucination risk</div>
+          <div class="pro-item">Jurisdiction-aware responses</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Enterprise pricing — not accessible to individuals</div>
+          <div class="con-item">Knowledge cutoff still a risk for new case law</div>
+          <div class="con-item">Cannot replace licensed legal counsel</div>
+        </td>
+        <td class="best-for-cell">Law firms, contract drafting, legal research at scale</td>
+        <td class="price-cell"><span class="price-val">Enterprise</span>pricing</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r2">2</td>
+        <td>
+          <div class="tool-name">Westlaw Precision</div>
+          <div class="tool-maker">Thomson Reuters</div>
+          <div class="tag">Case Law · Citator</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Gold standard for case law research</div>
+          <div class="pro-item">KeyCite citator verifies case validity</div>
+          <div class="pro-item">AI-assisted research with verified sources</div>
+          <div class="pro-item">Comprehensive statutes, regulations, journals</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Very expensive ($300–600+/mo)</div>
+          <div class="con-item">AI layer is add-on, not fully integrated</div>
+          <div class="con-item">Steep learning curve for new users</div>
+        </td>
+        <td class="best-for-cell">Case law research, brief writing, litigation prep</td>
+        <td class="price-cell"><span class="price-val">$300+/mo</span></td>
+      </tr>
+      <tr>
+        <td class="rank-cell r3">3</td>
+        <td>
+          <div class="tool-name">Claude / GPT-5 + web search</div>
+          <div class="tool-maker">Anthropic / OpenAI</div>
+          <div class="tag">General Legal Q&A</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Good for general legal concepts and overviews</div>
+          <div class="pro-item">Document summarization and plain-language explanation</div>
+          <div class="pro-item">Affordable and accessible</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">High hallucination risk for specific case citations</div>
+          <div class="con-item">Not trained on full legal corpus</div>
+          <div class="con-item">Cannot give legal advice — liability issues</div>
+        </td>
+        <td class="best-for-cell">Understanding contracts, legal concepts, non-lawyer use</td>
+        <td class="price-cell"><span class="price-val">$20/mo</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MEDICINE -->
+<div class="category-section">
+  <div class="cat-header">
+    <span class="cat-emoji">🏥</span>
+    <span class="cat-title">Medicine & Healthcare</span>
+    <span class="cat-sub">Clinical Support · Not a Substitute for Care</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Tool / Model</th><th>Pros</th><th>Cons</th><th>Best For</th><th>Price</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell r1">1</td>
+        <td>
+          <div class="tool-name">Google Med-Gemini</div>
+          <div class="tool-maker">Google DeepMind</div>
+          <div class="tag">Clinical · Multimodal</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Trained specifically on medical literature & EHRs</div>
+          <div class="pro-item">Interprets medical images (X-rays, pathology)</div>
+          <div class="pro-item">Outperforms GPT-4 on clinical benchmarks (MedQA)</div>
+          <div class="pro-item">Long context for patient history analysis</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Not yet widely deployed in clinical practice</div>
+          <div class="con-item">Requires clinical oversight — not for self-diagnosis</div>
+          <div class="con-item">Limited access outside research/enterprise</div>
+        </td>
+        <td class="best-for-cell">Clinical decision support, medical image analysis, EHR summarization</td>
+        <td class="price-cell"><span class="price-val">Enterprise</span>/ research</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r2">2</td>
+        <td>
+          <div class="tool-name">Amboss / UpToDate AI</div>
+          <div class="tool-maker">Various</div>
+          <div class="tag">Clinical Reference</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Peer-reviewed, continuously updated clinical content</div>
+          <div class="pro-item">Trusted by clinicians for evidence-based guidance</div>
+          <div class="pro-item">Drug interactions, treatment protocols, dosing</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">AI layer is newer and less sophisticated</div>
+          <div class="con-item">Expensive for individual students ($200+/yr)</div>
+          <div class="con-item">Not a generative tool — reference-only</div>
+        </td>
+        <td class="best-for-cell">Clinical decision support, medical students, point-of-care reference</td>
+        <td class="price-cell"><span class="price-val">$200+/yr</span></td>
+      </tr>
+      <tr>
+        <td class="rank-cell r3">3</td>
+        <td>
+          <div class="tool-name">GPT-5 / Claude</div>
+          <div class="tool-maker">OpenAI / Anthropic</div>
+          <div class="tag">Medical Q&A · Education</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Excellent for explaining mechanisms & pathophysiology</div>
+          <div class="pro-item">Helps medical students synthesize concepts</div>
+          <div class="pro-item">Summarizes research papers and case reports</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Hallucinations risk in clinical specifics</div>
+          <div class="con-item">Not for diagnosis or treatment decisions</div>
+          <div class="con-item">Knowledge cutoff misses latest trials</div>
+        </td>
+        <td class="best-for-cell">Medical education, concept review, research literature synthesis</td>
+        <td class="price-cell"><span class="price-val">$20/mo</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- VIDEO EDITING -->
+<div class="category-section">
+  <div class="cat-header">
+    <span class="cat-emoji">🎬</span>
+    <span class="cat-title">Video Editing & Production</span>
+    <span class="cat-sub">Content / Professional</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Tool / Model</th><th>Pros</th><th>Cons</th><th>Best For</th><th>Price</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell r1">1</td>
+        <td>
+          <div class="tool-name">Adobe Premiere Pro + Firefly</div>
+          <div class="tool-maker">Adobe</div>
+          <div class="tag">Pro Standard</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Industry-standard with AI-native features (Morph Cut, Reframe)</div>
+          <div class="pro-item">Auto-reframe for any aspect ratio</div>
+          <div class="pro-item">Generative Extend fills in missing frames</div>
+          <div class="pro-item">IP indemnification for Firefly AI content</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Steep learning curve for beginners</div>
+          <div class="con-item">$35+/mo subscription</div>
+          <div class="con-item">Requires powerful hardware</div>
+        </td>
+        <td class="best-for-cell">Professional video production, broadcast, film</td>
+        <td class="price-cell"><span class="price-val">$35/mo</span></td>
+      </tr>
+      <tr>
+        <td class="rank-cell r2">2</td>
+        <td>
+          <div class="tool-name">Descript</div>
+          <div class="tool-maker">Descript</div>
+          <div class="tag">Text-based Editing</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Edit video by editing transcript text</div>
+          <div class="pro-item">AI filler-word removal, silence trimming</div>
+          <div class="pro-item">Voice cloning & overdub feature</div>
+          <div class="pro-item">Fast for talking-head / podcast content</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Not suitable for complex cinematic editing</div>
+          <div class="con-item">Voice cloning raises ethical concerns</div>
+          <div class="con-item">Export quality limited in free tier</div>
+        </td>
+        <td class="best-for-cell">Podcasts, interviews, online courses, social content</td>
+        <td class="price-cell"><span class="price-val">Free / $24/mo</span>Creator</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r3">3</td>
+        <td>
+          <div class="tool-name">CapCut</div>
+          <div class="tool-maker">ByteDance</div>
+          <div class="tag">Social Media · Mobile</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Free, powerful, intuitive for social video</div>
+          <div class="pro-item">Auto-captions, voice isolation, background removal</div>
+          <div class="pro-item">Massive template library for TikTok/Reels/Shorts</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Owned by ByteDance — data privacy concerns</div>
+          <div class="con-item">Not suitable for professional production</div>
+          <div class="con-item">Watermark on free exports</div>
+        </td>
+        <td class="best-for-cell">Short-form social content, TikTok, Instagram Reels, beginners</td>
+        <td class="price-cell"><span class="price-val">Free / $8/mo</span>Pro</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- DATA ANALYSIS / RESEARCH -->
+<div class="category-section">
+  <div class="cat-header">
+    <span class="cat-emoji">📊</span>
+    <span class="cat-title">Data Analysis & Research</span>
+    <span class="cat-sub">Science / Business</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Tool / Model</th><th>Pros</th><th>Cons</th><th>Best For</th><th>Price</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell r1">1</td>
+        <td>
+          <div class="tool-name">GPT-5 + Advanced Data Analysis</div>
+          <div class="tool-maker">OpenAI</div>
+          <div class="tag">Code Interpreter · CSV</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Upload CSVs, runs Python analysis in-chat</div>
+          <div class="pro-item">Generates charts and statistical summaries</div>
+          <div class="pro-item">Deep Research mode for comprehensive reports</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Session-based — no persistent data storage</div>
+          <div class="con-item">Deep Research is slow (10–30 mins)</div>
+        </td>
+        <td class="best-for-cell">Business analytics, survey analysis, quick EDA</td>
+        <td class="price-cell"><span class="price-val">$20/mo</span>Plus</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r2">2</td>
+        <td>
+          <div class="tool-name">Gemini 3 Pro</div>
+          <div class="tool-maker">Google DeepMind</div>
+          <div class="tag">Multimodal Analysis</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Best for graph, chart, and visual data interpretation</div>
+          <div class="pro-item">1M token context for massive datasets</div>
+          <div class="pro-item">Deep integration with Google Workspace & BigQuery</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Less mature for complex multi-step data pipelines</div>
+          <div class="con-item">Google ecosystem dependency</div>
+        </td>
+        <td class="best-for-cell">Visual data analysis, large file review, Google Workspace users</td>
+        <td class="price-cell"><span class="price-val">$20/mo</span></td>
+      </tr>
+      <tr>
+        <td class="rank-cell r3">3</td>
+        <td>
+          <div class="tool-name">Perplexity AI</div>
+          <div class="tool-maker">Perplexity</div>
+          <div class="tag">Research · Live Search</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Real-time web research with citations</div>
+          <div class="pro-item">Fast, accurate synthesis of multiple sources</div>
+          <div class="pro-item">Pro Search for deeper academic research</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Less capable for data processing / computation</div>
+          <div class="con-item">Citation quality varies by source</div>
+        </td>
+        <td class="best-for-cell">Literature review, market research, fact-checking</td>
+        <td class="price-cell"><span class="price-val">Free / $20/mo</span>Pro</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- IMAGE GENERATION -->
+<div class="category-section">
+  <div class="cat-header">
+    <span class="cat-emoji">🎨</span>
+    <span class="cat-title">Image Generation & Visual AI</span>
+    <span class="cat-sub">Creative / Design</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Tool / Model</th><th>Pros</th><th>Cons</th><th>Best For</th><th>Price</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell r1">1</td>
+        <td>
+          <div class="tool-name">Midjourney v7</div>
+          <div class="tool-maker">Midjourney</div>
+          <div class="tag">Artistic Quality Leader</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Consistently highest aesthetic quality output</div>
+          <div class="pro-item">Strong community and style references</div>
+          <div class="pro-item">Fine-grained style control with parameters</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Discord-based — clunky UX</div>
+          <div class="con-item">No free tier</div>
+          <div class="con-item">Prompt following can be inconsistent</div>
+        </td>
+        <td class="best-for-cell">Concept art, illustration, advertising visuals, creative projects</td>
+        <td class="price-cell"><span class="price-val">$10/mo</span>Basic</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r2">2</td>
+        <td>
+          <div class="tool-name">DALL-E 4 / GPT-5 Images</div>
+          <div class="tool-maker">OpenAI</div>
+          <div class="tag">Prompt Accuracy</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Best at following complex, detailed prompts</div>
+          <div class="pro-item">Integrated into ChatGPT workflow seamlessly</div>
+          <div class="pro-item">Good for realistic images with text</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Less artistically expressive than Midjourney</div>
+          <div class="con-item">Overly cautious content filtering</div>
+        </td>
+        <td class="best-for-cell">Product mockups, infographics, text-heavy images, wireframes</td>
+        <td class="price-cell"><span class="price-val">Included</span>in Plus</td>
+      </tr>
+      <tr>
+        <td class="rank-cell r3">3</td>
+        <td>
+          <div class="tool-name">Adobe Firefly</div>
+          <div class="tool-maker">Adobe</div>
+          <div class="tag">Commercial-Safe</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="pro-item">Trained on licensed content — commercially safe</div>
+          <div class="pro-item">IP indemnification for enterprise users</div>
+          <div class="pro-item">Native integration in Photoshop / Premiere</div>
+        </td>
+        <td class="pro-con-cell">
+          <div class="con-item">Less creatively expressive than Midjourney/DALL-E</div>
+          <div class="con-item">Requires Adobe subscription for full access</div>
+        </td>
+        <td class="best-for-cell">Commercial design, ad agencies, brand-safe image generation</td>
+        <td class="price-cell"><span class="price-val">$10/mo</span>standalone</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  <p>COMPILED FOR ACADEMIC REFERENCE · FEBRUARY 2026</p>
+  <p>Rankings based on published benchmarks (SWE-bench, AIME 2025, Vellum LLM Leaderboard, LMArena) and independent expert assessments</p>
+  <p>⚠ AI capabilities change rapidly — treat this as a point-in-time snapshot</p>
+  <p>For live rankings: lmarena.ai · vellum.ai/best-llm-for-coding · llm-stats.com</p>
+</div>
+
+</body>
+</html>
